@@ -151,6 +151,106 @@ CREATE TABLE country (
     country_name VARCHAR(100) NOT NULL UNIQUE
 );
 
+-- Inventory manager role
+CREATE ROLE 'inventory_manager';
+GRANT SELECT ON bookstore.* TO 'inventory_manager';
+GRANT INSERT, UPDATE, DELETE ON bookstore.book TO 'inventory_manager';
+GRANT INSERT, UPDATE, DELETE ON bookstore.book_author TO 'inventory_manager';
+GRANT INSERT, UPDATE, DELETE ON bookstore.author TO 'inventory_manager';
+GRANT INSERT, UPDATE, DELETE ON bookstore.publisher TO 'inventory_manager';
+
+-- Insert data into country table
+INSERT INTO country (country_name, country_code) VALUES 
+('South Africa', 'SA')
+('United States', 'US'),
+('Canada', 'CA'),
+('United Kingdom', 'GB'),
+('Germany', 'DE'),
+('France', 'FR'),
+('Australia', 'AU'),
+('Japan', 'JP');
+
+-- Insert data into order_status table
+INSERT INTO order_status (status_name) VALUES 
+('Pending'),
+('Processing'),
+('Shipped'),
+('Delivered'),
+('Cancelled'),
+('Returned');
+
+-- Insert data into shipping_method table
+INSERT INTO shipping_method (method_name, cost, estimated_days) VALUES 
+('Standard Shipping', 4.99, 5),
+('Express Shipping', 9.99, 2),
+('Overnight Shipping', 19.99, 1),
+('Free Shipping', 0.00, 7),
+('International Standard', 14.99, 14);
+
+-- Insert sample customer data (assuming customer table already exists)
+INSERT INTO customer (first_name, last_name, email, phone, registration_date) VALUES
+('John', 'Smith', 'john.smith@email.com', '555-123-4567', '2023-01-15'),
+('Sarah', 'Johnson', 'sarah.j@email.com', '555-234-5678', '2023-02-20'),
+('Michael', 'Brown', 'mbrown@email.com', '555-345-6789', '2023-03-05'),
+('Emily', 'Davis', 'emily.davis@email.com', '555-456-7890', '2023-04-10'),
+('David', 'Wilson', 'dwilson@email.com', '555-567-8901', '2023-05-22');
+
+-- Insert sample book data (assuming book table already exists)
+INSERT INTO book (title, publisher_id, language_id, price, isbn, publication_date, page_count, description) VALUES
+('The Great Adventure', 1, 1, 24.99, '978-1234567890', '2022-06-15', 320, 'An epic tale of adventure and discovery'),
+('Data Science Fundamentals', 2, 1, 49.99, '978-0987654321', '2023-01-20', 450, 'Comprehensive guide to data science principles'),
+('Cooking Essentials', 3, 1, 34.99, '978-5678901234', '2022-09-10', 280, 'Master the basics of cooking with this guide'),
+('History of Art', 1, 1, 59.99, '978-6789012345', '2023-03-05', 520, 'A visual journey through art history'),
+('Modern Poetry', 4, 1, 19.99, '978-7890123456', '2022-11-30', 180, 'Collection of contemporary poems');
+
+-- Insert data into cust_order table
+INSERT INTO cust_order (customer_id, order_date, shipping_method_id, order_status_id, shipping_cost, total_amount) VALUES
+(1, '2023-06-01 10:30:00', 1, 4, 4.99, 29.98),
+(2, '2023-06-05 14:15:00', 2, 3, 9.99, 59.98),
+(3, '2023-06-10 09:45:00', 4, 2, 0.00, 34.99),
+(4, '2023-06-15 16:20:00', 3, 1, 19.99, 79.98),
+(5, '2023-06-20 11:00:00', 1, 5, 4.99, 24.99),
+(2, '2023-06-25 13:30:00', 4, 4, 0.00, 54.98),
+(1, '2023-07-01 15:45:00', 2, 3, 9.99, 49.99);
+
+-- Insert data into order_line table
+INSERT INTO order_line (order_id, book_id, quantity, price) VALUES
+(1, 1, 1, 24.99),
+(1, 3, 1, 34.99),
+(2, 2, 1, 49.99),
+(2, 5, 1, 19.99),
+(3, 3, 1, 34.99),
+(4, 4, 1, 59.99),
+(4, 5, 1, 19.99),
+(5, 1, 1, 24.99),
+(6, 2, 1, 49.99),
+(6, 5, 1, 4.99),
+(7, 2, 1, 49.99);
+
+-- Insert data into order_history table
+INSERT INTO order_history (order_id, order_status_id, status_date, comments) VALUES
+(1, 1, '2023-06-01 10:30:00', 'Order placed'),
+(1, 2, '2023-06-01 14:45:00', 'Payment confirmed'),
+(1, 3, '2023-06-02 09:30:00', 'Order shipped via USPS'),
+(1, 4, '2023-06-05 11:15:00', 'Delivered to customer'),
+(2, 1, '2023-06-05 14:15:00', 'Order placed'),
+(2, 2, '2023-06-05 16:30:00', 'Payment confirmed'),
+(2, 3, '2023-06-06 10:00:00', 'Order shipped via FedEx'),
+(3, 1, '2023-06-10 09:45:00', 'Order placed'),
+(3, 2, '2023-06-10 13:20:00', 'Order processing'),
+(4, 1, '2023-06-15 16:20:00', 'Order placed'),
+(5, 1, '2023-06-20 11:00:00', 'Order placed'),
+(5, 5, '2023-06-20 15:45:00', 'Order cancelled by customer'),
+(6, 1, '2023-06-25 13:30:00', 'Order placed'),
+(6, 2, '2023-06-25 15:10:00', 'Payment confirmed'),
+(6, 3, '2023-06-26 09:30:00', 'Order shipped via USPS'),
+(6, 4, '2023-06-29 14:20:00', 'Delivered to customer'),
+(7, 1, '2023-07-01 15:45:00', 'Order placed'),
+(7, 2, '2023-07-01 17:30:00', 'Payment confirmed'),
+(7, 3, '2023-07-02 10:15:00', 'Order shipped via UPS');
+
+-- QUERY EXAMPLES
+
 -- Created a user.
 CREATE USER 'kamogelo'@'localhost'
 IDENTIFIED BY '12345'; 

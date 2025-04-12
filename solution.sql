@@ -98,5 +98,60 @@ CREATE TABLE order_status (
     status_name VARCHAR(50) NOT NULL UNIQUE
 );
 
+-- Customer Table
+CREATE TABLE customer (
+    customer_id INT AUTO_INCREMENT PRIMARY KEY,
+    full_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    phone_number VARCHAR(20),
+    registration_date DATE DEFAULT NULL
+);
+
+
+CREATE TABLE customer_address (
+    address_id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT,
+    street VARCHAR(100),
+    city VARCHAR(50),
+    province VARCHAR(50),
+    postal_code VARCHAR(10),
+    address_type VARCHAR(50), -- e.g., 'Home', 'Work', 'Billing'
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id)
+);
+
+
+CREATE TABLE address_status (
+    status_id INT AUTO_INCREMENT PRIMARY KEY,
+    status_name VARCHAR(50) NOT NULL
+);
+
+
+CREATE TABLE address (
+    address_id INT AUTO_INCREMENT PRIMARY KEY,
+    street VARCHAR(100) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    province VARCHAR(50),
+    postal_code VARCHAR(10),
+    country VARCHAR(50)
+);
+
+
+CREATE TABLE address (
+    address_id INT AUTO_INCREMENT PRIMARY KEY,
+    street VARCHAR(100) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    province VARCHAR(50),
+    postal_code VARCHAR(10),
+    country VARCHAR(50)
+);
+
+
+CREATE TABLE country (
+    country_id INT AUTO_INCREMENT PRIMARY KEY,
+    country_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+    
+    
 
 

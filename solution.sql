@@ -47,3 +47,56 @@ CREATE TABLE publisher (
 );
 
 
+CREATE TABLE country (
+    country_id INT AUTO_INCREMENT PRIMARY KEY,
+    country_name VARCHAR(100) NOT NULL,
+    country_code CHAR(2) NOT NULL UNIQUE
+);
+
+CREATE TABLE cust_order (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT NOT NULL,
+    order_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    shipping_method_id INT NOT NULL,
+    order_status_id INT NOT NULL,
+    shipping_cost DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
+    FOREIGN KEY (shipping_method_id) REFERENCES shipping_method(shipping_method_id),
+    FOREIGN KEY (order_status_id) REFERENCES order_status(order_status_id)
+);
+
+CREATE TABLE order_line (
+    order_line_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    book_id INT NOT NULL,
+    quantity INT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES cust_order(order_id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id) REFERENCES book(book_id)
+);
+
+CREATE TABLE shipping_method (
+    shipping_method_id INT AUTO_INCREMENT PRIMARY KEY,
+    method_name VARCHAR(100) NOT NULL UNIQUE,
+    cost DECIMAL(10, 2) NOT NULL,
+    estimated_days INT NOT NULL
+);
+
+CREATE TABLE order_history (
+    history_id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    order_status_id INT NOT NULL,
+    status_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    comments TEXT,
+    FOREIGN KEY (order_id) REFERENCES cust_order(order_id) ON DELETE CASCADE,
+    FOREIGN KEY (order_status_id) REFERENCES order_status(order_status_id)
+);
+
+CREATE TABLE order_status (
+    order_status_id INT AUTO_INCREMENT PRIMARY KEY,
+    status_name VARCHAR(50) NOT NULL UNIQUE
+);
+
+
+

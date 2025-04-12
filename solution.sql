@@ -151,7 +151,44 @@ CREATE TABLE country (
     country_name VARCHAR(100) NOT NULL UNIQUE
 );
 
-    
-    
+-- Created a user.
+CREATE USER 'kamogelo'@'localhost'
+IDENTIFIED BY '12345'; 
+
+-- Created a role.
+CREATE ROLE book_admin; 
+
+-- Granting privileges to the role.
+GRANT ALL ON bookstore.* TO book_admin;
+
+-- Inserting data into the book table.
+INSERT INTO book (book_id, title, author_id, publisher_id, genre, isbn, price, publication_date, stock_quantity)
+VALUES (1, '1984', 1, 1, 'Dystopian', '9780451524935', 9.99, '1949-06-08', 100),
+       (2, 'Pride and Prejudice', 1, 2, 'Romance', '9780141439518', 7.99, '1813-01-28', 80),
+       (3, 'Harry Potter', 2, 1, 'Fantasy', '9780439708180', 10.99, '1997-06-26', 150);
+
+-- Inserting data into the author table.
+INSERT INTO author (author_id, first_name, last_name, bio) 
+VALUES (1, 'George', 'Orwell', 'English novelist and journalist, best known for 1984 and Animal Farm.'),
+       (2, 'Jane', 'Austen', 'English novelist known for works like Pride and Prejudice.'),
+       (3, 'J.K.', 'Rowling', 'British author, best known for the Harry Potter series.');
+
+-- Inserting data into the book_author table.
+INSERT INTO book_author (book_id, author_id) 
+VALUES (1, 1),  -- 1984 by George Orwell
+	   (2, 1),  -- Pride and Prejudice by Jane Austen
+       (3, 2);  -- Harry Potter by J.K. Rowling
+
+-- Inserting data into the book_language table.
+INSERT INTO book_language (language_id, language_name)
+VALUES (1, 'English'),
+       (2, 'Spanish'),
+       (3, 'French');
+
+-- Inserting data into the publisher table.
+INSERT INTO publisher (publisher_id, full_name, address, email_address, phone_number) 
+VALUES (1, 'Penguin Books', '375 Hudson Street, New York, NY', 'info@penguin.com', '072-567-4420'),
+       (2'HarperCollins', '195 Broadway, New York, NY', 'support@harpercollins.com', '987-654-3210');
+
 
 

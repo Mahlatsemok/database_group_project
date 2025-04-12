@@ -161,7 +161,7 @@ GRANT INSERT, UPDATE, DELETE ON bookstore.publisher TO 'inventory_manager';
 
 -- Insert data into country table
 INSERT INTO country (country_name, country_code) VALUES 
-('South Africa', 'SA')
+('South Africa', 'SA'),
 ('United States', 'US'),
 ('Canada', 'CA'),
 ('United Kingdom', 'GB'),

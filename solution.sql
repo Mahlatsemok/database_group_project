@@ -151,7 +151,6 @@ CREATE TABLE book_author (
 -- );
 
 
-
 -- Inventory manager role
 CREATE ROLE 'inventory_manager';
 GRANT SELECT ON bookstore.* TO 'inventory_manager';
@@ -294,52 +293,38 @@ VALUES (1, 'Penguin Books', '375 Hudson Street, New York, NY', 'info@penguin.com
 
 -- +++++++++++++++++++++++++++++ Sindiwe +++++++++++++++++++++++++++++++
 
-
-INSERT INTO customer (customer_id, full_name, email, phone_number, registration_date)
-VALUES
-(1, 'Alice Mokoena', 'alicemokoena@gmail.com', '0723456789', '2025-01-01'),
-(2, 'Bongani Dlamini', 'bonganid@gmail.com', '0739876543', '2023-05-10'),
-(3, 'Carla van der Merwe', 'carlavdm@gmail.com', '0741122334', '2025-02-15'),
-(4, 'David Ndlovu', 'davidndlovu@gmail.com', '0765566778', '2023-07-22'),
-(5, 'Emily Smith', 'emilysmith@gmail.com', '0719988776', '2025-03-30');
+INSERT INTO customer (first_name, last_name, email, phone_number, registration_date) VALUES
+('Lerato', 'Mokoena', 'lerato.mokoena@example.com', '0721234567', '2024-03-01'),
+('Thabo', 'Dlamini', 'thabo.dlamini@example.com', '0827654321', '2024-04-12'),
+('Zanele', 'Ngcobo', 'zanele.ngcobo@example.com', '0739876543', '2024-04-10');
 
 
-INSERT INTO customer_address (customer_id, street, city, province, postal_code, address_type)
-VALUES
--- Alice Mokoena
-('123 Main St', 'Cape Town', 'Western Cape', '8001', 'Home'),
-('456 Market Rd', 'Cape Town', 'Western Cape', '8002', 'Work'),
-
--- Bongani Dlamini
-('789 Sunset Blvd', 'Durban', 'KwaZulu-Natal', '4001', 'Home'),
-
--- Carla van der Merwe
-('488 Mavwel Rd', 'Cape Town', 'Western Cape', '8002', 'Home'),
-('401 Market Rd', 'Cape Town', 'Western Cape', '8002', 'Work'),
-
--- David Ndlovu
-('3893 Kgoro Sec', 'Mafikeng', 'North West', '3893', 'Home'),
-
--- Emily Smith
-('10013 Kgomola Sec', 'Lichtenburg', 'North West', '3893', 'Home');
+INSERT INTO customer_address (customer_id, street, city, province, postal_code, address_type) VALUES
+(1, '101 Nelson Mandela Drive', 'Johannesburg', 'Gauteng', '2000', 'Home'),
+(1, '77 Commissioner Street', 'Johannesburg', 'Gauteng', '2001', 'Work'),
+(2, '5 Florida Road', 'Durban', 'KwaZulu-Natal', '4001', 'Home'),
+(3, '19 Long Street', 'Cape Town', 'Western Cape', '8001', 'Home');
 
 
-INSERT INTO address_status (status_name,customer)
-VALUES
-('Active', 'Bongani Dlamini'),
-('Active', 'David Ndlovu');
+INSERT INTO address_status (status_name) VALUES
+('Active'),
+('Inactive'),
+('Pending Verification');
 
 
-INSERT INTO address (street, city, province, postal_code, country)
-VALUES 
-('123 Main Street', 'Cape Town', 'Western Cape', '8001', 'South Africa'),
-('789 Sunset Blvd', 'Durban', 'KwaZulu-Natal', '4001', 'South Africa'),
-('488 Street', 'Cape Town', 'Western Cape', '8002', 'South Africa'),
-('3893 Kgoro Sec', 'Lichtenburg', 'North West', '2740', 'South Africa');
+INSERT INTO address (street, city, province, postal_code, country) VALUES
+('101 Nelson Mandela Drive', 'Johannesburg', 'Gauteng', '2000', 'South Africa'),
+('77 Commissioner Street', 'Johannesburg', 'Gauteng', '2001', 'South Africa'),
+('5 Florida Road', 'Durban', 'KwaZulu-Natal', '4001', 'South Africa'),
+('19 Long Street', 'Cape Town', 'Western Cape', '8001', 'South Africa');
 
-INSERT INTO country (coutry_id,country_name)
-VALUES 
-('+27', 'South Africa');
+
+INSERT INTO country (country_name, country_code) VALUES
+('South Africa', 'ZA'),
+('Botswana', 'BW'),
+('Namibia', 'NA'),
+('Zimbabwe', 'ZW');
+
 
 -- Users and Permissions
 CREATE USER 'bookstore_assistant'@'Localhost' IDENTIFIED BY 'Assist@123';
